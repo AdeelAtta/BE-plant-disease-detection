@@ -92,11 +92,11 @@ app.post('/api/predict', upload.single('image'), async (req, res) => {
         const probabilities = softmax(Array.from(output.data));
         const maxIndex = probabilities.indexOf(Math.max(...probabilities));
         const predictedClass = classLabels[maxIndex];
-
+        const confidenceScore = (probabilities[maxIndex] * 100).toFixed(2)
         // Return only the top prediction
         res.json({
-            predicted_class: predictedClass,
-            confidence: (probabilities[maxIndex] * 100).toFixed(2)
+            predicted_class: confidenceScore > 50 ? predictedClass : 'No plant Leave Detected',
+            confidence: confidenceScore > 50 ? confidenceScore : 0
         });
 
     } catch (error) {
