@@ -95,8 +95,8 @@ app.post('/api/predict', upload.single('image'), async (req, res) => {
         const confidenceScore = (probabilities[maxIndex] * 100).toFixed(2)
         // Return only the top prediction
         res.json({
-            predicted_class: confidenceScore > 50 ? predictedClass : 'No plant Leave Detected',
-            confidence: confidenceScore > 50 ? confidenceScore : 0
+            predicted_class: predictedClass ,
+            confidence: confidenceScore 
         });
 
     } catch (error) {
